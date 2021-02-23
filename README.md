@@ -26,3 +26,4 @@ Proiectul a fost realizat în **Visual Studio** utilizând **Asp.Net MVC 5**
 
 
 ## Demo
+![Main page](https://github.com/iuga-paula/TaskManagement/blob/Screenshots-%26%26-Demos/Mp.JPG)
