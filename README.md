@@ -9,4 +9,5 @@ Există mai multe tipuri de useri:
 
 
 # Membrii echipei:
-* @NedelcuRadu
+* [NedelcuRadu](https://github.com/NedelcuRadu)
+* [iuga-paula]()
