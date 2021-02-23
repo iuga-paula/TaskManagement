@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Index Users";
+}
+<main id="main">
+    <section id="info">
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <h2>@ViewBag.Message</h2>
+
+            </div>
+        }
+        @if (ViewBag.ErrMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <h2>@ViewBag.ErrMessage</h2>
+
+            </div>
+        }
+    </section>
+
+    <section id="services" class="services section-bg">
+        <div class="container">
+            <div class="section-title">
+                <h2>List Of All Users</h2>
+            </div>
+            <hr />
+           
+            <div class="row justify-content-around">
+                    @foreach (Task_Management.Models.ApplicationUser user in ViewBag.Users)
+                    {
+                        <div class="col-4 d-flex">
+                                @Html.Partial("UserInfo", user)
+                                <br />
+                                <hr />
+                        </div>
+
+                    }
+                    <div class="container text-center" style="color:#14c871">
+                        <nav aria-label="Page navigation" style="color:#14c871">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="/Users/Index/?page=1" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+
+                                @for (int i = 1; i <= ViewBag.lastPage; i++)
+                                {
+                                    <li><a href="/Users/Index/?page=@i">@(i)</a></li>
+                                }
+
+                                <li>
+                                    <a href="/Users/Index/?page=@(ViewBag.lastPage)" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>

@@ -1,0 +1,216 @@
+﻿@model Task_Management.Models.Task
+@{
+    ViewBag.Title = "Show";
+}
+
+
+<main class="container-fluid">
+    <section id="info">
+        @if (ViewBag.tasknewmessage != null)
+        {<div class="alert alert-success" role="alert">
+                <h2>@ViewBag.tasknewmessage</h2>
+            </div>
+        }
+        @if (ViewBag.taskmessage != null)
+        {   
+            <div class="alert alert-success" role="alert">
+                <h2>@ViewBag.taskmessage</h2>
+            </div>
+        }
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <h2>Previous task creation failed because of the following error:</h2>
+                <p>@ViewBag.Error</p>
+            </div>
+        }
+
+        @if (ViewBag.err != null)
+        {
+            <div class="alert alert-danger" role="alert">
+
+                <p>@ViewBag.err</p>
+            </div>
+        }
+    </section>
+
+    <div id="services" class="services section-bg">
+        <div class="section-title">
+            <h2>@ViewBag.ProjectTasks.Name</h2>
+            <div class="container flex mx-auto">
+                <div class="row">
+                    <div class="col">
+                        <div><b>Description:</b></div>
+                        <p>@ViewBag.ProjectTasks.Description</p>
+                        <div><b>Start Date - Deadline</b></div>
+                        <p>@ViewBag.ProjectTasks.StartDate - @ViewBag.ProjectTasks.FinDate</p>
+                        @if ((User.IsInRole("TeamLeader") && ViewBag.CurrentUser == ViewBag.ProjectTasks.User.Id) || User.IsInRole("Admin"))
+                        {
+                        <div class="row justify-content-around m-4">
+                            <a href="/Projects/Edit/@ViewBag.ProjectTasks.ProjectId" class="btn-outline-info"><button class="btn btn-info">Edit Project</button></a>
+                            @using (Html.BeginForm(actionName: "Delete", controllerName: "Projects", routeValues: new { id = ViewBag.ProjectTasks.ProjectId }))
+                            {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button type="submit" class="btn btn-danger">Delete project</button>
+                            }
+                        </div>
+                         
+                        }
+                    </div>
+
+                    <div class="col">
+                        <div>Team leader: <b>@ViewBag.ProjectTasks.User.UserName</b></div> <!--In fiecare proiect obiectul User retine Leaderul-->
+                        <div>Team Members:</div>
+                        @if (ViewBag.HasMembers != null)
+                        {<br />
+                            foreach (var member in ViewBag.ProjectTasks.ProjectUsers)
+                            {
+                                if (member.UserId != ViewBag.ProjectTasks.User.Id)
+                                {
+                                    <i> @member.User.UserName </i>
+                                    <i> @member.JoinDate </i>
+                                    if (member.Accepted)
+                                    { <i>accepted the request</i> }
+                                    else
+                                    { <i>not accepted so far</i> }
+                                    <br />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <i> You're all alone for now... <strong>sob...</strong></i><br /><br />
+                        }
+
+                        <!--daca userul este admin sau daca este teamleaderul acestei echipe-->
+                        @if ((User.IsInRole("TeamLeader") && ViewBag.CurrentUser == ViewBag.ProjectTasks.User.Id) || User.IsInRole("Admin"))
+                        {
+                            <div> Add a new member by writing his name:</div>
+                            using (Html.BeginForm(actionName: "AddMember", controllerName: "Projects", routeValues: new { ProjectId = ViewBag.ProjectTasks.ProjectId }))
+                            {
+                                <input type="text" name="UserName" />
+                                <button type="submit" class="btn btn-success">Add Member</button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+       
+        <hr />
+        @if (ViewBag.currentTasks != null)
+        {<div class="section-title">
+                <h2>List Of All Tasks</h2>
+            </div>
+            <div class="container d-flex justify-content-around">
+
+                @foreach (Task_Management.Models.Task task in ViewBag.currentTasks)
+                {
+
+                    @Html.Partial("TaskInfo", task)
+                }
+
+            </div>
+            <div class="container text-center" style="color:#14c871">
+                <nav aria-label="Page navigation" style="color:#14c871">
+                    <ul class="pagination">
+                        <li>
+                            <a href="/Projects/Show/@ViewBag.ProjectTasks.ProjectId/?page=1" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        @for (int i = 1; i <= ViewBag.lastPage; i++)
+                        {
+                            <li><a href="/Projects/Show/@ViewBag.ProjectTasks.ProjectId/?page=@i">@(i)</a></li>
+                        }
+
+                        <li>
+                            <a href="/Projects/Show/@ViewBag.ProjectTasks.ProjectId/?page=@(ViewBag.lastPage)" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        }
+        else
+        {
+            <div class="section-title">
+                <h2>Seems like you got no tasks yet.</h2>
+            </div>
+        }
+
+        @if ((User.IsInRole("TeamLeader") && ViewBag.CurrentUser == ViewBag.ProjectTasks.User.Id) || User.IsInRole("Admin"))
+        {
+
+
+
+            <section id="featured-services" class="featured-services">
+                <div class="container">
+                    <h2>Create Task</h2>
+                    <div class="row" style="margin:10px;">
+                        @using (Html.BeginForm(actionName: "New", controllerName: "Tasks", routeValues: new { ProjectId = ViewBag.ProjectTasks.ProjectId }))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Title, "Task Title:")<br />
+                                @Html.TextBoxFor(m => m.Title, null, new { @class = "form-control" })<br />
+                                @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger " })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Description, "Task Description:")<br />
+                                @Html.TextAreaFor(m => m.Description, 5, 50, new { htmlAttributes = new { @class = "text-box multi-line" } })<br />
+                                @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger " })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserId, "Assigned to:")
+                                @Html.DropDownListFor(m => m.UserId, new SelectList(Model.Members, "Value", "Text", "Not assigned"), "Choose a team member for this task", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.StartDate, "Start Date:")<br />
+                                @Html.TextBoxFor(m => m.StartDate, null, new { @type = "date", @class = "form-control", @Value = ViewBag.Date.ToString("yyyy-MM-dd"), @Max = ViewBag.ProjectTasks.FinDate.ToString("yyyy-MM-dd"), @Min = ViewBag.ProjectTasks.StartDate.ToString("yyyy-MM-dd") })<br />
+                                @Html.ValidationMessageFor(m => m.StartDate, null, new { @class = "text-danger " })
+                                <!--daca data taskul nu corespunde datei proiectului-->
+                                @if (ViewBag.StartDate != null)
+                                {
+                                    <p class="text-danger"> @ViewBag.StartDate</p>
+
+                                }
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FinDate, "Deadline:")<br />
+                                @Html.TextBoxFor(m => m.FinDate, null, new { @type = "date", @class = "form-control", @Value = ViewBag.Date.ToString("yyyy-MM-dd"), @Max = ViewBag.ProjectTasks.FinDate.ToString("yyyy-MM-dd"), @Min = ViewBag.ProjectTasks.StartDate.ToString("yyyy-MM-dd") })<br />
+                                @Html.ValidationMessageFor(m => m.FinDate, null, new { @class = "text-danger " })
+                                <!--daca data taskul nu corespunde datei proiectului-->
+                                @if (ViewBag.FinDate != null)
+                                {
+                                    <p class="text-danger"> @ViewBag.FinDate</p>
+
+                                }
+                                <i class="icofont-info-circle"></i><i style="font-size:small">The first and the last days of the project are reserved for  meetings</i>
+                                <br />
+                                <button type="submit" class="btn btn-success"> Create Task</button>
+                            </div>
+                        }
+                        <div class="col-6">
+                            <img src="~/Content/transparent-hero-im.png" class="img-fluid animated" alt="">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    <a href="/Projects/Index"><button class="m-3 btn btn-info">Back To Your Projects</button></a>
+                </div>
+            </section>
+
+
+        }
+        <!--daca userul este admin sau daca este teamleaderul acestei echipe-->
+
+
+    </div>
+</main>

@@ -1,0 +1,124 @@
+﻿
+@model  Task_Management.Models.Comment
+@{
+    ViewBag.Title = "Tasks";
+}
+<main id="main">
+    <section id="info">
+        @if (ViewBag.messagedelcomm != null)
+        {<div class="alert alert-success" role="alert">
+                <h2>@ViewBag.messagedelcomm</h2>
+            </div>
+        }
+
+    </section>
+
+
+
+    @foreach (var task in ViewBag.TaskComments) //Nu-l șterge pt ca e de fapt colecție cu 1 element
+    {
+        <div id="services" class="services section-bg">
+            <div class="section-title">
+                <h2>@task.Title</h2>
+            </div>
+            <div class="container justify-content-around">
+                <div class="row">
+                    <div class="col">
+                        <span><b>Status:</b> </span>
+                        @if (task.Status == 0)
+                        {
+                            @: Not Started
+                        }
+                        else
+                        if ((int) task.Status == 1)
+
+                        {
+                            @: In Progress
+                        }
+                        else
+                        {
+                            @: Completed
+                        }
+                        <p>
+                            <b>Assigned member:</b>
+                            @if (task.User != null)
+                            {
+                                <b>@task.User.UserName</b>
+                            }
+                            else
+                            {
+                                <i> No member assigned to this task.</i>
+                            }
+                        </p>
+                    </div>
+                    <div class="col">
+                        <span><b>Start Date:</b> @task.StartDate</span><br />
+                        <span><b>Deadline:</b> @task.FinDate</span><br /><br />
+                    </div>
+
+                    <br />
+                    <br />
+                </div>
+                <div class="row">
+                    <p><b>Task Description:</b> </p><br/>
+                    <p>@task.Description</p>
+                </div>
+                <div class="row d-flex justify-content-around">
+                    <div class="col">
+                        <a href="/Tasks/ChangeStatus/@task.TaskId"><button class="btn btn-success">Change status</button></a>
+                    </div>
+                    @if ((User.IsInRole("TeamLeader") && ViewBag.CurrentUser == task.Project.UserId) || User.IsInRole("Admin"))
+                    {
+                        <div class="col">
+                            <form method="post" action="/Tasks/Delete/@ViewBag.TaskId">
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button type="submit" class="btn btn-danger">Delete Task</button>
+                            </form>
+                            </div>
+                            <div class="col">
+                                <a href="/Tasks/Edit/@ViewBag.TaskId"><button class="btn btn-info">Edit Task</button></a>
+                            </div>
+                            }
+                        </div>
+                    </div>
+        </div>
+        <hr />
+        <section>
+            <h2 class="section-title">Task comments</h2>
+            @foreach (Task_Management.Models.Comment comment in task.Comments)
+            {
+                @Html.Partial("CommentInfo", comment)
+            }
+            <div class="container" id="hero">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="panel">
+                            <h4>Add A New Comment</h4>
+                            @using (Html.BeginForm(actionName: "New", controllerName: "Comments", routeValues: new { TaskId = task.TaskId }))
+                            {
+                                @Html.ValidationSummary(false, null, new { @class = "text-danger" })
+                                @Html.Label("Content", "Content")
+
+                                <br />
+                                // <input type="text" name="Content" class="form-control "><br><br>
+                                @Html.TextBox("Content", null, new { @class = "form-control" })
+                                @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                                <br />
+                                //@Html.HiddenFor(m => m.TaskId, new { Value = ViewBag.TaskId })
+                                <button type="submit" class="btn btn-success">Add comment</button>
+                            }
+
+                        </div>
+                        <a href="/Projects/Show/@ViewBag.ProjectId"><button class="mx-auto btn btn-info" style="width: 200px;">Back To All Tasks</button></a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    }
+
+
+    <br />
+
+</main>

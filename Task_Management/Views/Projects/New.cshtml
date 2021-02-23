@@ -1,0 +1,48 @@
+﻿@model Task_Management.Models.Project
+@{
+    ViewBag.Title = "New";
+}
+<p>ViewBag.Error</p>
+<main id="main">
+    <section id="services" class="services section-bg">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Create A New Project</h2>
+            </div>
+            <div class="row" style="margin: 20px;">
+                @using (Html.BeginForm(actionName: "New", controllerName: "Projects"))
+                {
+
+
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })<br />
+                    @Html.LabelFor(m => m.Name, "Project Name:")<br />
+                    @Html.TextBoxFor(m => m.Name, null, new { @class = "form-control" });<br />
+                    @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger " })
+                    <br />
+                    @Html.LabelFor(m => m.Description, "Project Description:")<br />
+                    @Html.TextAreaFor(m => m.Description, 5, 50, new { htmlAttributes = new { @class = "text-box multi-line" } })<br />
+                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger " })
+                    <br />
+                    @Html.LabelFor(m => m.StartDate, "Start Date:")<br />
+                    @Html.TextBoxFor(m => m.StartDate, null, new { @type = "date", @class = "form-control", @Value = ViewBag.Date.ToString("yyyy-MM-dd") });<br />
+                    @Html.ValidationMessageFor(m => m.StartDate, null, new { @class = "text-danger " })
+                    <br />
+
+                    @Html.LabelFor(m => m.FinDate, "Deadline:")<br />
+                    @Html.TextBoxFor(m => m.FinDate, null, new { @type = "date", @class = "form-control", @Value = ViewBag.Date.ToString("yyyy-MM-dd") });<br />
+                    @Html.ValidationMessageFor(m => m.FinDate, null, new { @class = "text-danger " })
+                    <br />
+                    <br />
+                    <button type="submit" class="btn btn-success">Create Project</button>
+                }
+                <div class="col-6">
+                    <img src="~/Content/transparent-hero-im.png" class="img-fluid animated" alt="">
+                </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="/Projects/Index" class="btn btn-info">Back To Your Projects</a>
+            </div>
+</section>
+</main>

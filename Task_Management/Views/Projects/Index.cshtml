@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Page = "projects";
+}
+<main id="main">
+    <section id="info">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["message"]
+            </div>
+        }
+
+        @if (ViewBag.projectnewmessage != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <h2>@ViewBag.projectnewmessage</h2>
+
+            </div>
+        }
+
+        @if (ViewBag.projectmessage != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <h2>@ViewBag.projectmessage</h2>
+
+            </div>
+        }
+
+
+    </section>
+
+    <section id="services" class="services section-bg">
+
+        <div class="section-title">
+            <h2>List Of All Projects</h2>
+        </div>
+
+        <div class="container justify-content">
+            @if (ViewBag.totalItems > 0)
+            {<div class="row justify-content-around">
+                    @foreach (Task_Management.Models.Project project in ViewBag.Projects)
+                    {
+                        <div class="col-5">
+                            <div class="icon-box">
+                                @Html.Partial("ProjectInfo", project)
+
+                                <a href="/Projects/Show/@project.ProjectId"><button class="btn btn-success">Show Tasks And Details</button> </a>
+                                <br />
+                                <hr />
+                            </div>
+                        </div>
+
+                       }
+                </div>
+             <div class="row justify-content-md-center">
+                 <div style="color:#14c871">
+                     <nav aria-label="Page navigation" style="color:#14c871">
+                         <ul class="pagination">
+                             <li>
+                                 <a href="/Projects/Index/?page=1" aria-label="Previous">
+                                     <span aria-hidden="true">&laquo;</span>
+                                 </a>
+                             </li>
+
+                             @for (int i = 1; i <= ViewBag.lastPage; i++)
+                             {
+                                 <li><a href="/Projects/Index/?page=@i">@(i)</a></li>
+                             }
+
+                             <li>
+                                 <a href="/Projects/Index/?page=@(ViewBag.lastPage)" aria-label="Next">
+                                     <span aria-hidden="true">&raquo;</span>
+                                 </a>
+                             </li>
+                         </ul>
+                     </nav>
+                     <a href="/Projects/New"><button class="btn btn-success">Add Project</button></a>
+                 </div>
+             </div>
+
+            }
+            else
+            {
+                <div>
+                    <p>You have no projects yet, you can start by creating one!</p>
+
+                    <div class=" text-center">
+                        <a href="/Projects/New"><button class="btn btn-success">Add Project</button></a>
+                    </div>
+                </div>
+
+                }
+            </div>
+
+
+</section>
+</main>

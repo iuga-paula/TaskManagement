@@ -1,0 +1,36 @@
+﻿<div class="col-3">
+    <div class="icon-box">
+        <div class="icon"><i class="bx bx-file"></i></div>
+        <h4>@Model.Title</h4>
+        <small>Started on: @Model.StartDate</small><br />
+        <small>Deadline: @Model.FinDate</small>
+        <br />
+        @if (Model.User != null)
+        {
+        <p>Member assigned: <b>@Model.User.UserName</b> </p>
+        }
+        else
+        {
+            <p><b>No one assigned yet</b></p>
+        }
+
+        @if (Model.Status == 0)
+        {
+            @: Status: Not Started
+        }
+        else
+if ((int)Model.Status == 1)
+
+        {
+            @: Status: In Progress
+        }
+        else
+        {
+            @: Status: Completed
+        }
+        <br/>
+        <a href="/Tasks/Show/@Model.TaskId"><button class="btn btn-success">Show Task</button></a>
+        <br />
+    </div>
+</div>
+

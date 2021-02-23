@@ -1,0 +1,32 @@
+﻿@model Task_Management.Models.Task
+@{
+    ViewBag.Title = "ChangeStatus";
+}
+
+
+
+    <main id="main">
+        <section id="services" class="services section-bg">
+
+            @if (ViewBag.err != null)
+            {
+                <div class="alert alert-danger" role="alert">
+
+                    <p>@ViewBag.err</p>
+                </div>
+            }
+            <div class="section-title">
+
+                <h2> Change status of "@Model.Title" </h2>
+            </div>
+
+            <p><b>Current Status:</b> <i>@Model.Status</i></p>
+            @using (Html.BeginForm(actionName: "ChangeStatus", controllerName: "Tasks", routeValues: new { TaskId = Model.TaskId, Title = Model.Title, Description = Model.Description, UserId = Model.UserId, StartDate = Model.StartDate, FinDate = Model.FinDate}))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+                @Html.DropDownListFor(m => m.Status, new SelectList(Model.Stat, "Value", "Text"), null , new { @class = "form-control" })
+                <br />
+                <button type="submit" class="btn btn-success">Edit Task</button>
+            }
+        </section>
+    </main>

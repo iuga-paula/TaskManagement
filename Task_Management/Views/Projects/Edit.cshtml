@@ -1,0 +1,56 @@
+﻿@model Task_Management.Models.Project
+@{
+    ViewBag.Title = "Edit Project";
+}
+<main id="main">
+    <section id="services" class="services section-bg">
+        <div class="section-title">
+            <h2>Edit Project "@Model.Name"</h2>
+        </div>
+        <div class="row" style="margin: 20px;">
+            @using (Html.BeginForm(actionName: "Edit", controllerName: "Projects", routeValues: new { ProjectId = Model.ProjectId }))
+            {
+
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                @Html.LabelFor(m => m.Name, "Project Name:")
+                <br />
+                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger " })
+                <br /><br />
+                @Html.LabelFor(m => m.Name, "Project Description:")
+                <br />
+                @Html.TextAreaFor(m => m.Description, 5, 50, new { htmlAttributes = new { @class = "text-box multi-line" } })
+                <br />  
+                @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger " })
+                <br /><br />
+
+
+                @Html.LabelFor(m => m.StartDate, "Start Date:")
+                <br />
+                @Html.EditorFor(m => m.StartDate, new { htmlAttributes = new { @type = "date", @class = "form-control", @Value = Model.StartDate.ToString("yyyy-MM-dd") } })
+                @Html.ValidationMessageFor(m => m.StartDate, null, new { @class = "text-danger " })
+                <br />
+                @Html.LabelFor(m => m.FinDate, "Deadline:")
+                <br />
+                @Html.EditorFor(m => m.FinDate, new { htmlAttributes = new { @type = "date", @class = "form-control", @Value = Model.FinDate.ToString("yyyy-MM-dd") } })
+                @Html.ValidationMessageFor(m => m.FinDate, null, new { @class = "text-danger " })
+
+                <br />
+                <br />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Edit Project</button>
+                </div>
+            }
+            <div class="col-6">
+                <img src="~/Content/transparent-hero-im.png" class="img-fluid animated" alt="">
+            </div>
+        </div>
+           
+                <div class="text-center">
+                    <a href="/Projects/Show/@Model.ProjectId"><button class="btn btn-info">Back To Your Project</button></a>
+                </div>
+</section>
+    </main>
+

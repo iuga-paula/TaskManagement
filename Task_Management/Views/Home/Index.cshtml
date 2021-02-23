@@ -1,0 +1,216 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+    if (ViewBag.hasInv != null && ViewBag.hasInv)
+    { Layout = "~/Views/Shared/_otherLayout.cshtml"; }
+    else
+    { Layout = "~/Views/Shared/_Layout.cshtml"; }<!--daca are inivatii se acceseaza Layoutul care ! inviations la meniu -->
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<!--<style>    a:hover {
+        color: #206bfb;
+    }
+</style>-->
+<body>
+
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h1>Elegant  solutions for your projects</h1>
+                    <h2>Forget about the fuss of organising teams! Here you can manage your teams, member and tasks. <br />See what is done and what needs to be done. It's that simple. </h2>
+                    <div class="d-flex">
+                        <!--utilizatorii neinregistrati pot sa vada pagina de prezentare a platformei si  formularele de autentificare si inregistrare-->
+                        @if (Request.IsAuthenticated)
+                        {
+                            <a href="/Projects/Index" class="btn-get-started scrollto">See Projects</a>
+                            if (User.IsInRole("Admin"))
+                            {
+                                <a href="/Users/Index" class="btn-get-started scrollto" style="margin-left:10px">See Users</a>
+
+                            }
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "get-started-btn scrollto" })
+                            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-link" })
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                    <img src="~/Content/hero-img.png" class="img-fluid animated" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+
+    <main id="main">
+
+        <!-- ======= Featured Services Section ======= -->
+        <section id="featured-services" class="featured-services">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="icon-box">
+                            <div class="icon"><i class="icofont-computer"></i></div>
+                            <h4 class="title"><a href="">Keep in touch with your team</a></h4>
+                            <p class="description">In this online platform you can see what is done and what needs to be done in your projects whenever you want.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="icofont-image"></i></div>
+                            <h4 class="title"><a href="">See progress</a></h4>
+                            <p class="description">Assign a member for each task and see when they start and finish working on it. A completed task => one step closer to the final project</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="icofont-tasks-alt"></i></div>
+                            <h4 class="title"><a href="">Schedule team tasks</a></h4>
+                            <p class="description">For each team that you lead here you can schedule tasks and see how team members are dealing with them</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Featured Services Section -->
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img src="~/Content/img/about.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0 content">
+                        <h3>Why users like TaskMangement</h3>
+                        <p class="font-italic">
+                            A little section regarding what users find attractive at us and why they will continue using our app.
+                        </p>
+                        <ul>
+                            <li><i class="icofont-check-circled"></i>Manage deadlines more responsibly. Make as many teams as you need, choose your team members and assign them tasks to complete</li>
+                            <li><i class="icofont-check-circled"></i> See what happens to your teams in real time.</li>
+                            <li><i class="icofont-check-circled"></i> Continuous change. Report us a bug and we will fix it as soon as possibile</li>
+                        </ul>
+                        <p>
+                            It's free and it will always be free. Forget about the thousands of agendas and to do lists.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End About Section -->
+        <!-- ======= Counts Section ======= -->
+        <section id="counts" class="counts">
+            <div class="container">
+
+                <div class="row counters">
+
+                    <div class="col-lg-3 col-6 text-center">
+                        <span data-toggle="counter-up">232</span>
+                        <p>Clients</p>
+                    </div>
+
+                    <div class="col-lg-3 col-6 text-center">
+                        <span data-toggle="counter-up">521</span>
+                        <p>Projects</p>
+                    </div>
+
+                    <div class="col-lg-3 col-6 text-center">
+                        <span data-toggle="counter-up">1,463</span>
+                        <p>Hours Of Support</p>
+                    </div>
+
+                    <div class="col-lg-3 col-6 text-center">
+                        <span data-toggle="counter-up">15</span>
+                        <p>Hard Workers</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Counts Section -->
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services section-bg">
+            <div class="container">
+
+                <div class="section-title">
+                    <span>Services</span>
+                    <h2>Services</h2>
+                    <p>Some services that we will provide you if you register to TaskManagement</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4><a href="">Be a Team Leader</a></h4>
+                            <p>Once you create a project you will automaticaly be its Team Leader. You can create and delete tasks and assign them to your team memebers.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-file"></i></div>
+                            <h4><a href="">Projects agenda</a></h4>
+                            <p>Even if you are teamleader or just a member, you can see your projects all together in a special page.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                            <h4><a href="">Set Deadlines</a></h4>
+                            <p>You can set deadlines for both projects and tasks and see if team members manage to finish them in time.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-world"></i></div>
+                            <h4><a href="">Real time communication</a></h4>
+                            <p>Leave comments and guidelines for every task. Team Memebers cand see them and comment too.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+                        <div class="icon-box">
+                            <div class="icon"><i class="icofont-ssl-security"></i></div>
+                            <h4><a href="">Security</a></h4>
+                            <p>Only you and your team members (the ones that accepted your invitation) can see what happens inside a team.</p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-arch"></i></div>
+                            <h4><a href="">Build a team</a></h4>
+                            <p>After adding a project you can invite members. They will receive a notification via mail and they cand accept it or not on the invitations section.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Services Section -->
+
+
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+
+</body>
+
+</html>

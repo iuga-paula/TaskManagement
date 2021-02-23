@@ -1,0 +1,31 @@
+﻿@model Task_Management.Models.EditUserModel
+@{
+    ViewBag.Title = "User Edit";
+}
+
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Users", routeValues: new
+{ id = @Model.Id }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <br />
+    @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger " }) <br />
+    <i class="glyphicon glyphicon-user"></i>
+    @Html.Label("UserName", "User Name:", new { @class = "" })
+    <br />
+    @Html.EditorFor(m => m.UserName)
+    <br /><br />
+    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger " }) <br />
+    <i class="glyphicon glyphicon-envelope"></i>
+    @Html.Label("Email", "Email:", new { @class = "" })
+    <br />
+    @Html.EditorFor(m => m.Email)
+    <br /><br />
+    <i class="glyphicon glyphicon-th-list"></i>
+    <label>Select Role</label>
+    @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value", "Text",
+   ViewBag.userRole), null, new { @class = "form-control" })
+    <br />
+    <button class="m-3 btn btn-success" type="submit">Edit User</button>
+}

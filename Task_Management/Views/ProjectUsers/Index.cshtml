@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<main id="main">
+    <section id="info">
+        @if (ViewBag.Accepted != null)
+        {<div class="alert alert-success" role="alert">
+            <h2>@ViewBag.Accepted</h2>
+            </div>
+        }
+    </section>
+    <section id="services" class="services section-bg">
+        <div class="container">
+            <div class="section-title">
+                <h2>Your Invitations</h2>
+            </div>
+            <hr />
+            <hr />
+            <br />
+
+            @if (ViewBag.Invitations != null && ViewBag.nrInv != 0)
+            {
+                <div class="row">
+                    @foreach (Task_Management.Models.ProjectUser invitation in ViewBag.Invitations)
+                    {
+                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                            <div class="icon-box">
+                                @Html.Partial("InvitationInfo", invitation)
+
+                                <a href="/ProjectUsers/Accept/@invitation.ProjectUserId"  class="btn btn-outline-primary"> Join Team</a>
+                                <a href="/ProjectUsers/Reject/@invitation.ProjectUserId"  class="btn btn-outline-primary"> Reject request</a>
+                                <br />
+                                <hr />
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="section-title">
+                    <h4>Seems like there are no team invitations for you.</h4>
+                </div>
+            }
+        </div>
+    </section>
+</main>
+
