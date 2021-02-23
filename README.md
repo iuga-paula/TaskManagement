@@ -13,7 +13,7 @@ Există mai multe tipuri de useri:
 * [iuga-paula](https://github.com/iuga-paula)
 
 ## Tehnologii folosite
-Proiectul a fost realizat în **Asp.Net MVC 5**
+Proiectul a fost realizat în **Visual Studio** utilizând **Asp.Net MVC 5** 
 * Entity Framework - Code First pentru baza de date
 * Idenity Framewok - pentru partea cu useri și roluri
 * Bootstrap
