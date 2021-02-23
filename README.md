@@ -10,4 +10,4 @@ Există mai multe tipuri de useri:
 
 # Membrii echipei:
 * [NedelcuRadu](https://github.com/NedelcuRadu)
-* [iuga-paula]()
+* [iuga-paula](https://github.com/iuga-paula)
