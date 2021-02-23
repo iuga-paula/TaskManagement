@@ -9,4 +9,4 @@ Există mai multe tipuri de useri:
 
 
 # Membrii echipei:
-* @
+* @NedelcuRadu
