@@ -29,3 +29,5 @@ Proiectul a fost realizat în **Visual Studio** utilizând **Asp.Net MVC 5**
 ![Main page](https://github.com/iuga-paula/TaskManagement/blob/Screenshots-%26%26-Demos/Mp.JPG)
 ![Teams pg 1](https://github.com/iuga-paula/TaskManagement/blob/Screenshots-%26%26-Demos/teams1.JPG)
 ![Teams pg 2](https://github.com/iuga-paula/TaskManagement/blob/Screenshots-%26%26-Demos/teams2.JPG)
+![Teams pg 3](https://github.com/iuga-paula/TaskManagement/blob/Screenshots-%26%26-Demos/teams3.JPG)
+![Comments](https://github.com/iuga-paula/TaskManagement/blob/Screenshots-%26%26-Demos/comm.JPG)
