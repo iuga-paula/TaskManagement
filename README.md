@@ -11,3 +11,11 @@ Există mai multe tipuri de useri:
 ## Membrii echipei:
 * [NedelcuRadu](https://github.com/NedelcuRadu)
 * [iuga-paula](https://github.com/iuga-paula)
+
+## Tehnologii folosite
+Proiectul a fost realizat în **Asp.Net MVC 5 **
+* Entity Framework - Code First pentru baza de date
+* Idenity Framewok - pentru partea cu useri și roluri
+* Bootstrap
+* C#
+* GitHub
