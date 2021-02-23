@@ -8,6 +8,6 @@ Există mai multe tipuri de useri:
 - admistrator - cu drepturi depline asupra apicației
 
 
-# Membrii echipei:
+## Membrii echipei:
 * [NedelcuRadu](https://github.com/NedelcuRadu)
 * [iuga-paula](https://github.com/iuga-paula)
