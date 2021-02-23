@@ -19,3 +19,4 @@ Proiectul a fost realizat în **Asp.Net MVC 5**
 * Bootstrap
 * C#
 * GitHub
+* Azure DevOps
