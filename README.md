@@ -23,3 +23,6 @@ Proiectul a fost realizat în **Visual Studio** utilizând **Asp.Net MVC 5**
 
 ## Diagrama conceptuală
 ![Diagrama conceptuala](https://github.com/iuga-paula/TaskManagement/blob/Screenshots-%26%26-Demos/DC.png)
+
+
+## Demo
