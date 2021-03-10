@@ -1,5 +1,5 @@
 # TaskManagement
-pair programming pentru proiect realizat în **ASP.NET MCV 5** pentru managementul taskurilor în cadrul unor echipe (de tip Trello).
+Proiect realizat în **ASP.NET MCV 5** pentru managementul taskurilor în cadrul unor echipe (de tip Trello).
 
 Există mai multe tipuri de useri: 
 - utilizator neinregistrat pot să vadă doar pagina de prezentare a platformei și   formularele de înregistrare și autentificare
